@@ -8,9 +8,9 @@ This package provides utility functions and common MobX patterns build on top of
 
 ## lazyObservable
 
-`lazyObservable` creates an observable around a `fetch` method that will not be invoked until the observable is needed the first time. The fetch method receives a sink callback which can be used to replace the current value of the lazyObservable. It is allowed to call sink multiple times to keep the lazyObservable up to date with some external resource.
+`lazyObservable` creates an observable around a `fetch` method that will not be invoked until the observable is needed the first time. The fetch method receives a `sink` callback which can be used to replace the current value of the lazyObservable. It is allowed to call `sink` multiple times to keep the lazyObservable up to date with some external resource.
 
-Note that it is the current() call itself which is being tracked by MobX, so make sure that you don't dereference to early.
+Note that it is the `current` call itself which is being tracked by MobX, so make sure that you don't dereference to early.
 
 ### Examples
 ```dart
@@ -28,3 +28,25 @@ const profile = Observer(builder: (_) =>
 // triggers refresh the userProfile
 userProfile.refresh();
 ```
+
+## queueProcessor
+
+`queueProcessor` takes an `ObservableList`, observes it and calls `processor` once for each item added to the observable array, optionally debouncing the action
+
+### Examples
+
+```dart
+final pendingNotifications = ObservableList.of([]);
+final stop = queueProcessor(pendingNotifications, (msg) {
+  // show Desktop notification
+  return Notification(msg);
+});
+
+// usage:
+pendingNotifications.add("test!");
+```
+
+Returns ReactionDisposer stops the processor
+
+
+
