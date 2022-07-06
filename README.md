@@ -1,39 +1,30 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# MobX-utils
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+Utility functions and common patterns for MobX
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+This package provides utility functions and common MobX patterns build on top of MobX. It is encouraged to take a peek under the hood and read the sources of these utilities. Feel free to open a PR with your own utilities. For large new features, please open an issue first.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+# API
 
-## Features
+## lazyObservable
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+`lazyObservable` creates an observable around a `fetch` method that will not be invoked until the observable is needed the first time. The fetch method receives a sink callback which can be used to replace the current value of the lazyObservable. It is allowed to call sink multiple times to keep the lazyObservable up to date with some external resource.
 
-## Getting started
+Note that it is the current() call itself which is being tracked by MobX, so make sure that you don't dereference to early.
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
+### Examples
 ```dart
-const like = 'sample';
+final userProfile = lazyObservable(
+    (sink) => fetch("/myprofile").then((profile) => sink(profile))
+);
+
+// use the userProfile in a Flutter widget:
+const profile = Observer(builder: (_) =>
+  userProfile.current == null
+  ? Text('Loading user profile')
+  : Text(userProfile.current.displayName)
+);
+
+// triggers refresh the userProfile
+userProfile.refresh();
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
