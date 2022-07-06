@@ -1,6 +1,6 @@
 name: mobx_utils
 description: This package provides utility functions and common MobX patterns build on top of MobX.
-version: 0.1.0
+version: 0.1.0+1
 homepage: https://github.com/amondnet/mobx_utils
 
 environment:
