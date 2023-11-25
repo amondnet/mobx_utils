@@ -39,7 +39,7 @@ jobs:
       - name: Analyze
         run: dart analyze
       - name: Run tests
-        run: dart test --coverage=coverage
+        run: tool/coverage.sh
       - name: Upload coverage to codecov
         run: curl -s https://codecov.io/bash | bash
 
