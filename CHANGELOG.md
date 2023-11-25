@@ -1,3 +1,7 @@
+## 0.3.0+1
+
+- Code refactoring.
+
 ## 0.3.0
 
 - Updated the SDK lower-bound to 3.0.

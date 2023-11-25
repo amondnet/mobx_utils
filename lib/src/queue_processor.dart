@@ -20,21 +20,21 @@ ReactionDisposer queueProcessor<T>(
   Function(T item) processor, {
   int debounce = 0,
 }) {
-  final _processor = Action(processor, name: 'queueProcessor');
+  final processor0 = Action(processor, name: 'queueProcessor');
 
-  void _runner(_) {
+  void runner(_) {
     final items = List.of(observableList);
     // clear the queue for next iteration
     runInAction(() => observableList.clear());
     // fire processor
     for (var item in items) {
-      _processor.call([item]);
+      processor0.call([item]);
     }
   }
 
   if (debounce > 0) {
-    return autorun(_runner, delay: debounce);
+    return autorun(runner, delay: debounce);
   } else {
-    return autorun(_runner);
+    return autorun(runner);
   }
 }

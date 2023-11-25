@@ -42,8 +42,6 @@ LazyObservable<T> lazyObservable<T>(
     return value.value;
   }
 
-  ;
-
   var resetFnc = Action(
     () {
       started = false;

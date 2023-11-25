@@ -39,10 +39,10 @@ void main() {
       var started = 0;
       var i = 10;
 
-      final future = () async {
+      future() async {
         started = started + 1;
         return i++;
-      };
+      }
 
       final lo = lazyObservable<int>((sink) async {
         future().then((value) => sink(value));
