@@ -1,5 +1,7 @@
 # MobX-utils
 
+[![codecov](https://codecov.io/gh/amondnet/mobx_utils/graph/badge.svg?token=USfI2kBWND)](https://codecov.io/gh/amondnet/mobx_utils)
+
 Utility functions and common patterns for MobX
 
 This package provides utility functions and common MobX patterns build on top of MobX. It is encouraged to take a peek under the hood and read the sources of these utilities. Feel free to open a PR with your own utilities. For large new features, please open an issue first.
