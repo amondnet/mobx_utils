@@ -121,4 +121,23 @@ void main() {
       expect(pendingValues, [false, true, false]);
     });
   });
+
+  test('lazy observable pending can be observed', () {
+    fakeAsync((async) {
+      sleep(ms) => Future.delayed(Duration(milliseconds: ms), () {});
+
+      final lo = lazyObservable<dynamic>((sink) {
+        sleep(100).then((value) => sink(value));
+      }, null);
+
+      final pendingValues = [];
+
+      autorun((_) => pendingValues.add(lo.pending));
+
+      lo.current;
+      async.elapse(Duration(milliseconds: 150));
+
+      expect(pendingValues, [false, true, false]);
+    });
+  });
 }
