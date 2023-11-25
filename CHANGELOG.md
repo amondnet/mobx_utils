@@ -1,7 +1,15 @@
+## 0.3.0
+
+- Updated the SDK lower-bound to 3.0.
+
 ## 0.2.0
 
-- feat: add queue processor
+### Features
+
+- Add queue processor
 
 ## 0.1.0
 
-- feat: add lazy observable
+### Features
+
+- Add lazy observable
